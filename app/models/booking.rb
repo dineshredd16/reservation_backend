@@ -8,6 +8,7 @@ class Booking < ApplicationRecord
     validate :validate_booking_date
     validate :validate_slots_availabilty
 
+
     scope :is_active, -> {where(is_active: true)}
 
     def validate_booking_date
@@ -15,7 +16,11 @@ class Booking < ApplicationRecord
         if !(date.strftime("%d-%m-%Y") == DateTime.now.strftime("%d-%m-%Y") and (["00", "30"].include? date.strftime("%M")))
             errors.add(:base, "can only book services at round figure values only 00 min,  60min, 30min")
         end
+        if DateTime.now.in_time_zone("Asia/Kolkata").strftime("%d-%m-%Y %H-%M") > date.strftime("%d-%m-%Y %H-%M")
+            errors.add(:base, "booking can either be created or updated only for bookings after #{DateTime.now.strftime("%d-%m-%Y %H-%M")}")
+        end
     end
+
 
     def validate_slots_availabilty
         if self.is_active == true
@@ -27,7 +32,7 @@ class Booking < ApplicationRecord
     end
 
     def self.servicable_slot(datetime, company_service_id)
-        count = 0
+        count = 1
         company_service = CompanyService.find_by(id: company_service_id)
         company = Company.find_by(id: company_service.company_id)
         if (company.end_time.strftime("%H:%M") > (datetime + company_service.time_taken.minutes).strftime("%H:%M"))

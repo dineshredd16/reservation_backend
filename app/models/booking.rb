@@ -16,7 +16,7 @@ class Booking < ApplicationRecord
         if !(date.strftime("%d-%m-%Y") == DateTime.now.strftime("%d-%m-%Y") and (["00", "30"].include? date.strftime("%M")))
             errors.add(:base, "can only book services at round figure values only 00 min,  60min, 30min")
         end
-        if DateTime.now.in_time_zone("Asia/Kolkata").strftime("%d-%m-%Y %H-%M") > date.strftime("%d-%m-%Y %H-%M")
+        if (DateTime.now.in_time_zone("Asia/Kolkata").strftime("%d-%m-%Y %H-%M") > date.strftime("%d-%m-%Y %H-%M"))
             errors.add(:base, "booking can either be created or updated only for bookings after #{DateTime.now.strftime("%d-%m-%Y %H-%M")}")
         end
     end
@@ -35,7 +35,7 @@ class Booking < ApplicationRecord
         count = 1
         company_service = CompanyService.find_by(id: company_service_id)
         company = Company.find_by(id: company_service.company_id)
-        if (company.end_time.strftime("%H:%M") > (datetime + company_service.time_taken.minutes).strftime("%H:%M"))
+        if (company.end_time.strftime("%H:%M") > (datetime + company_service.time_taken.minutes).strftime("%H:%M")) and (company.start_time.strftime("%H-%M") <= datetime.strftime("%H-%M"))
             bookings = Booking.joins("Inner Join company_services as cs on cs.id = bookings.company_service_id").where(booking_date: (Time.now - company_service.time_taken.minutes)..datetime, company_service_id: company_service_id).select("bookings.booking_date as booking_datetime, cs.time_taken as time_taken")
             bookings.each do |booking|
                 end_time = (booking.booking_datetime + booking.time_taken.minutes)

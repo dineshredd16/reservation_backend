@@ -10,6 +10,8 @@ class Booking < ApplicationRecord
 
 
     scope :is_active, -> {where(is_active: true)}
+    scope :by_company, -> (code) {joins("Inner Join companies on companies.id = bookings.company_id").where(companies: {code: code})}
+    scope :by_company_service, -> (service_code) {joins("Inner Join company_services as cs on cs.id = bookings.company_service_id").where(company_services: {service_code: service_code})}
 
     def validate_booking_date
         date = self.booking_date

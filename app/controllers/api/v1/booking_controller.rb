@@ -42,14 +42,14 @@ module Api::V1
             service = CompanyService.find_by(id: params[:company_service_id])
             company = Company.find_by(id: params[:company_id])
             if service.present? and company.present?
-                time = Time.now
+                time = Time.now.in_time_zone("Asia/Kolkata")
                 if time.strftime("%M").to_i <= 30
                     time = time.beginning_of_hour
                 else
                     time = time.beginning_of_hour + 1.hour
                 end
                 if company.working_days.include? (time.wday)
-                    while (time < (Time.now.end_of_day))
+                    while (time < (Time.now.in_time_zone("Asia/Kolkata").end_of_day))
                         if Booking.servicable_slot(time, service.id)
                             data << time.strftime("%d-%m-%Y %H:%M")
                         end

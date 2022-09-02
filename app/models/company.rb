@@ -3,6 +3,7 @@ class Company < ApplicationRecord
     include Filterable
 
     has_many :company_services
+    belongs_to :booking, optional: true
 
     validates_uniqueness_of :name
     validates_uniqueness_of :code

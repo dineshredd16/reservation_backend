@@ -14,8 +14,8 @@ class Booking < ApplicationRecord
     scope :by_company_service, -> (service_code) {joins("Inner Join company_services as cs on cs.id = bookings.company_service_id").where(company_services: {service_code: service_code})}
 
     def validate_booking_date
-        date = self.booking_date
-        if !(date.strftime("%d-%m-%Y") == DateTime.now.strftime("%d-%m-%Y") and (["00", "30"].include? date.strftime("%M")))
+        date = self.booking_date.in_time_zone("Asia/Kolkata")
+        if !(date.strftime("%d-%m-%Y") == DateTime.now.in_time_zone("Asia/Kolkata").strftime("%d-%m-%Y") and (["00", "30"].include? date.strftime("%M")))
             errors.add(:base, "can only book services at round figure values only 00 min,  60min, 30min")
         end
         if (DateTime.now.in_time_zone("Asia/Kolkata").strftime("%d-%m-%Y %H-%M") > date.strftime("%d-%m-%Y %H-%M"))

@@ -1,0 +1,269 @@
+{
+	"info": {
+		"_postman_id": "2720db7e-1bfc-4fe4-8483-ce8684af5f33",
+		"name": "Reservations Backend Api's",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Company",
+			"item": [
+				{
+					"name": "index_company",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{reservation_url}}index_company",
+							"host": [
+								"{{reservation_url}}index_company"
+							],
+							"query": [
+								{
+									"key": "by_service",
+									"value": "company_1_service_code",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create_company",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"company_2\",\n    \"code\": \"company_2_code\",\n    \"gstin\": \"company_2_gstin\",\n    \"pan_no\": \"company_2_pan_no\",\n    \"address\": \"company_2_address\",\n    \"working_days\": [0,1,5,6],\n    \"start_time\": \"9\",\n    \"end_time\": \"23\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{reservation_url}}create_company",
+							"host": [
+								"{{reservation_url}}create_company"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_company",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company_id\": 1,\n    \"gstin\": \"company_1_gstin\",\n    \"pan_no\": \"company_1_pan_no\",\n    \"address\": \"company_1_address\",\n    \"working_days\": [0,1,2,3,4,5,6],\n    \"start_time\": \"0\",\n    \"end_time\": \"23:59:00\",\n    \"is_active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{reservation_url}}update_company",
+							"host": [
+								"{{reservation_url}}update_company"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Company Services",
+			"item": [
+				{
+					"name": "index_company_service",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{reservation_url}}index_company_service?company_id=1",
+							"host": [
+								"{{reservation_url}}index_company_service"
+							],
+							"query": [
+								{
+									"key": "company_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create_company_service",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company_id\": 1,\n    \"name\": \"company_1_service\",\n    \"service_code\": \"company_1_service_code\",\n    \"price\": 100,\n    \"slots\": 3,\n    \"time_taken\": \"25\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{reservation_url}}create_company_service",
+							"host": [
+								"{{reservation_url}}create_company_service"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_company_service",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company_service_id\": 1,\n    \"price\": 100,\n    \"slots\": 3,\n    \"time_taken\": \"25\",\n    \"is_active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{reservation_url}}update_company_service",
+							"host": [
+								"{{reservation_url}}update_company_service"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bookings",
+			"item": [
+				{
+					"name": "index_booking",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{reservation_url}}index_booking",
+							"host": [
+								"{{reservation_url}}index_booking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create_booking",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company_service_id\": 1,\n    \"company_id\": 1,\n    \"booking_date\": \"03/09/2022 3:30\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{reservation_url}}create_booking",
+							"host": [
+								"{{reservation_url}}create_booking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_booking",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"booking_id\": 1,\n    \"is_active\": false,\n    \"booking_date\": \"03/09/2022 3:30\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{reservation_url}}update_booking",
+							"host": [
+								"{{reservation_url}}update_booking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "index_available_booking_slot",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company_service_id\": 1,\n    \"company_id\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{reservation_url}}index_available_booking_slot",
+							"host": [
+								"{{reservation_url}}index_available_booking_slot"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "generate_booking_report",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{reservation_url}}generate_bookings_report",
+							"host": [
+								"{{reservation_url}}generate_bookings_report"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

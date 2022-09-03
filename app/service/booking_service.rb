@@ -1,4 +1,4 @@
-class BookingService < ApplicationService
+class BookingService
 
   def self.list(params)
     bookings = Booking.where(created_at: Date.current.all_day).is_active

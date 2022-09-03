@@ -12,7 +12,7 @@ class BookingService
         booking = Booking.new(new_params)
         booking.is_active = true
         if booking.save
-            retutn true, booking
+            return true, booking
         else
             return false, booking.errors.full_messages.join(', ')
         end

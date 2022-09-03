@@ -17,7 +17,7 @@ module Api::V1
         end
 
         def update_booking
-            status, data = BookingService.create(params)
+            status, data = BookingService.update(params)
             if status
                 render json: {status: "success", data: data, errors: []},status: :ok
             else
@@ -26,7 +26,7 @@ module Api::V1
         end
 
         def index_available_booking_slot
-            status, data = BookingService.create(params)
+            status, data = BookingService.list_available_slots(params)
             if status
                 render json: {status: "success", data: data, errors: []},status: :ok
             else

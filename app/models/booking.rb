@@ -19,7 +19,7 @@ class Booking < ApplicationRecord
             errors.add(:base, "can only book services at round figure values only 00 min,  60min, 30min")
         end
         if (DateTime.now.in_time_zone("Asia/Kolkata").strftime("%d-%m-%Y %H-%M") > date.strftime("%d-%m-%Y %H-%M"))
-            errors.add(:base, "booking can either be created or updated only for bookings after #{DateTime.now.in_time_zone("Asia/Kolkata").strftime("%d-%m-%Y %H-%M")}")
+            errors.add(:base, "booking can either be created or updated only for bookings after #{DateTime.now.in_time_zone("Asia/Kolkata").strftime("%d-%m-%Y %H:%M")}")
         end
     end
 

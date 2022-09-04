@@ -1,6 +1,6 @@
 # README
 
-# api's end poit is mentioned below
+# api's endpoint is mentioned below
 Try the backend system https://mysterious-earth-43392.herokuapp.com/api/v1/
 
 

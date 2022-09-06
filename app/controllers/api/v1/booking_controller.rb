@@ -12,7 +12,7 @@ module Api::V1
             if status
                 render json: {status: "success", data: data, errors: []},status: :ok
             else
-                render json: {status: "failure", data: [], errors: data},status: :ok
+                render json: {status: "failure", data: [], errors: data},status: :unprocessable_entity
             end
         end
 
@@ -21,7 +21,7 @@ module Api::V1
             if status
                 render json: {status: "success", data: data, errors: []},status: :ok
             else
-                render json: {status: "failure", data: [], errors: data},status: :ok
+                render json: {status: "failure", data: [], errors: data},status: :unprocessable_entity
             end
         end
 
@@ -30,7 +30,7 @@ module Api::V1
             if status
                 render json: {status: "success", data: data, errors: []},status: :ok
             else
-                render json: {status: "failure", data: [], errors: data},status: :ok
+                render json: {status: "failure", data: [], errors: data},status: :unprocessable_entity
             end
         end
 

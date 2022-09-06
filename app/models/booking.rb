@@ -37,7 +37,9 @@ class Booking < ApplicationRecord
         count = 1
         company_service = CompanyService.find_by(id: company_service_id)
         company = Company.find_by(id: company_service.company_id)
-        if (company.end_time.strftime("%H:%M") > (datetime + company_service.time_taken.minutes).strftime("%H:%M")) and (company.start_time.strftime("%H:%M") <= datetime.strftime("%H:%M"))
+        company_end_time = DateTime.current.in_time_zone("Asia/Kolkata").beginning_of_day + company.end_time.hour.hours + company.end_time.min.minutes
+        company_start_time = DateTime.current.in_time_zone("Asia/Kolkata").beginning_of_day + company.start_time.hour.hours + company.start_time.min.minutes
+        if (company_end_time > (datetime + company_service.time_taken.minutes)) and (company_start_time <= datetime)
             bookings = Booking.joins("Inner Join company_services as cs on cs.id = bookings.company_service_id").where(booking_date: (Time.now - company_service.time_taken.minutes)..datetime, company_service_id: company_service_id, is_active: true).select("bookings.booking_date as booking_datetime, cs.time_taken as time_taken")
             bookings.each do |booking|
                 end_time = (booking.booking_datetime + booking.time_taken.minutes)

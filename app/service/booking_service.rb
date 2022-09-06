@@ -42,7 +42,7 @@ class BookingService
     if service.present? and company.present?
         time = Time.now.in_time_zone("Asia/Kolkata")
         if time.strftime("%M").to_i <= 30
-            time = time.beginning_of_hour + 30.minutes
+            time = time.beginning_of_hour
         else
             time = time.beginning_of_hour + 1.hour
         end

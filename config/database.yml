@@ -1,19 +1,20 @@
 default: &default
   adapter: postgresql
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  url: postgres://bsikzyvvrqgwkb:af1206b4a89e53b2f955490a0006602f94904921d60227d9ca0fd59e9fa8dea7@ec2-34-234-240-121.compute-1.amazonaws.com:5432/d719osto5eao7b
   timeout: 5000
 
 development:
   <<: *default
-  database: reservation_backend
+  database: reservation_backend_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: reservation_backend
+  database: reservation_backend_development
 
 production:
   <<: *default
-  database: reservation_backend
+  database: reservation_backend_production

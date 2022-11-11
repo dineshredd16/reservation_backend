@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_02_163829) do
+ActiveRecord::Schema.define(version: 2022_11_08_155633) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "hstore"
   enable_extension "plpgsql"
 
   create_table "bookings", force: :cascade do |t|
@@ -42,6 +43,7 @@ ActiveRecord::Schema.define(version: 2022_09_02_163829) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["code"], name: "index_companies_on_code"
     t.index ["is_active"], name: "index_companies_on_is_active"
+    
   end
 
   create_table "company_services", force: :cascade do |t|
@@ -58,6 +60,29 @@ ActiveRecord::Schema.define(version: 2022_09_02_163829) do
     t.index ["is_active"], name: "index_company_services_on_is_active"
     t.index ["service_code"], name: "index_company_services_on_service_code"
     t.index ["slots"], name: "index_company_services_on_slots"
+  end
+
+  create_table "user_bookings", force: :cascade do |t|
+    t.bigint "booking_id"
+    t.bigint "user_id"
+    t.integer "payment_reference_id"
+    t.boolean "payment_status"
+    t.boolean "is_active"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["booking_id"], name: "index_user_bookings_on_booking_id"
+    t.index ["is_active"], name: "index_user_bookings_on_is_active"
+    t.index ["user_id"], name: "index_user_bookings_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "mobile_number"
+    t.string "email"
+    t.boolean "is_active"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["is_active"], name: "index_users_on_is_active"
   end
 
 end
